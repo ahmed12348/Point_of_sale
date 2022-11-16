@@ -86,6 +86,7 @@ class UserController extends Controller
         $roles=Role::all();
         return view('dashboard.users.edit',compact('users','roles','user'));
     }
+    
 
     public function update(Request $request,$id)
     {
