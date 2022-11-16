@@ -311,7 +311,7 @@
 
             n.show();
 
-        });//end of delete
+        });//end of delete``
 
         // // image preview
         // $(".image").change(function () {

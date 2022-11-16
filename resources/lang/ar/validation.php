@@ -141,6 +141,7 @@ return [
     */
 
     'attributes' => [
+        'image'                  => 'صورة',
         'name'                  => 'الاسم',
         'username'              => 'اسم المُستخدم',
         'email'                 => 'البريد الالكتروني',
@@ -170,5 +171,7 @@ return [
         'time'                  => 'الوقت',
         'available'             => 'مُتاح',
         'size'                  => 'الحجم',
+        'permissions'                  => 'الصلاحيات',
+
     ],
 ];

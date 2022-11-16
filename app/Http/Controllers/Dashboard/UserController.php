@@ -7,6 +7,10 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
+use Intervention\Image\Facades\Image;
+
 
 
 class UserController extends Controller
@@ -40,18 +44,25 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-//        dd($request->all());
+
         $request->validate([
             'first_name' => 'required',
-            'email' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|unique',
             'password' => 'required|confirmed',
+            'image' => 'image',
+            'permissions' => 'required|min:1',
         ]);
         $request_data=$request->except(['password','password_confirmation','permissions','image']);
         $request_data['password']=bcrypt($request->password);
 
         if ($request->image){
-            
+            Image::make($request->image)->resize(300,null,function ($constraint){
+                $constraint->aspectRatio();
+            })->save(public_path('uploads/user_images/' . $request->image->hashName()));
+            $request_data['image']=$request->image->hashName();
         }
+//        dd($request_data);
 
         $user=User::create($request_data);
         $user->attachRole('admin');
@@ -81,10 +92,22 @@ class UserController extends Controller
         $user=User::findOrFail($id);
         $request->validate([
             'first_name' => 'required',
-            'email' => 'required',
-
+            'email' => ['required',Rule::unique('users')->ignore($user->id),],
+            'image' => 'image',
+            'permissions' => 'required|min:1',
         ]);
-        $request_data=$request->except(['permissions']);
+        $request_data=$request->except(['permissions','image']);
+
+        if ($request->image){
+            if ($user->image != 'default.png'){
+                Storage::disk('public_uploads')->delete('/user_images/'.$user->image);
+            }
+            Image::make($request->image)->resize(300,null,function ($constraint){
+                $constraint->aspectRatio();
+            })->save(public_path('uploads/user_images/' . $request->image->hashName()));
+            $request_data['image']=$request->image->hashName();
+        }
+
         $user->update($request_data);
         $user->syncPermissions($request->permissions);
 
@@ -95,7 +118,11 @@ class UserController extends Controller
 
     public function destroy($id)
     {
+
         $user=User::findOrFail($id);
+        if($user->image != 'default.png'){
+            Storage::disk('public_uploads')->delete('/user_images/'.$user->image);
+        }
         $user->delete();
         Session::flash('success', __('site.deleted_successfully'));
         return redirect()->route('dashboard.users.index');
