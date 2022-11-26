@@ -26,10 +26,15 @@ class UserController extends Controller
     public function index(Request $request)
     {
 
-        $users =User::when($request->search,function($query) use ($request){
-                return  $query->where('first_name','like','%'.$request->search. '%')
-                    ->orWhere('last_name','like','%'.$request->search. '%');
-        })->whereRoleIs('admin')->latest()->paginate(5);
+            $users =User::whereRoleIs('admin')->where(function($q) use ($request) {
+             return   $q->when($request->search,function($query) use ($request){
+
+                 return  $query->where('first_name','like','%'.$request->search. '%')
+                     ->orWhere('last_name','like','%'.$request->search. '%');
+             });
+
+            })->latest()->paginate(5);
+
         return view('dashboard.users.index',compact('users'));
     }
 
@@ -86,7 +91,7 @@ class UserController extends Controller
         $roles=Role::all();
         return view('dashboard.users.edit',compact('users','roles','user'));
     }
-    
+
 
     public function update(Request $request,$id)
     {

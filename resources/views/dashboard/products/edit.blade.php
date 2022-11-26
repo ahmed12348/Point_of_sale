@@ -7,7 +7,7 @@
             <h1>@lang('site.products')</h1>
 
             <ol class="breadcrumb">
-                <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
+                <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
                 <li><a href="{{ route('dashboard.products.index') }}"> @lang('site.products')</a></li>
                 <li class="active">@lang('site.edit')</li>
             </ol>
@@ -41,7 +41,7 @@
 
                         @foreach (config('translatable.locales') as $locale)
                             <div class="form-group">
-                            @if(count(config('translatable.locales'))>1) 
+                            @if(count(config('translatable.locales'))>1)
                                 <label>@lang('site.' . $locale . '.name')</label>
                             @else
                             <label>@lang('site.name')</label>
@@ -50,7 +50,7 @@
                             </div>
 
                             <div class="form-group">
-                            @if(count(config('translatable.locales'))>1) 
+                            @if(count(config('translatable.locales'))>1)
                                 <label>@lang('site.' . $locale . '.description')</label>
                             @else
                             <label>@lang('site.description')</label>

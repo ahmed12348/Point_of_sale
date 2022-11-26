@@ -9,7 +9,7 @@
             <h1>@lang('site.products')</h1>
 
             <ol class="breadcrumb">
-                <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
+                <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
                 <li class="active">@lang('site.products')</li>
             </ol>
         </section>
@@ -38,10 +38,10 @@
                                     @endforeach
                                 </select>
                             </div>
-                            
+
                             <div class="col-md-4">
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> @lang('site.search')</button>
-                                @if (auth()->user()->hasPermission('create_products'))
+                                @if (auth()->user()->hasPermission('products_create'))
                                     <a href="{{ route('dashboard.products.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</a>
                                 {{-- @else
                                     <a href="#" class="btn btn-primary disabled"><i class="fa fa-plus"></i> @lang('site.add')</a> --}}
@@ -73,7 +73,7 @@
                                 <th>@lang('site.first_stock') </th>
                                 <th>@lang('site.total_sales') </th>
                                 <th>@lang('site.total_sales_return') </th>
-
+                                <th>@lang('site.profit_percent') </th>
                                 <th>@lang('site.total_purch') </th>
                                 <th>@lang('site.total_purch_return') </th>
 
@@ -86,10 +86,10 @@
                                 @endif
                             </tr>
                             </thead>
-                            
+
                             <tbody>
                             @foreach ($products as $index=>$product)
-                            
+
                                 <tr>
                                     <!-- <td>{{ $index + 1 }}</td> -->
                                     <td>{{ $product->id }}</td>
@@ -103,26 +103,28 @@
                                     <td>{{ $product->sale_havegoml }}</td>
 
                                      <td>{{ $product->sale_goml }}</td>
-                                     <td>{{$product->total_first_stock() }} </td>
-                                    <td>{{$product->total_sales() }} </td>
-                                    <td>{{$product->total_sales_return() }} </td>
+{{--                                     <td>{{$product->total_first_stock() }} </td>--}}
 
-                                    <td>{{$product->total_purch() }} </td>
-                                    <td>{{$product->total_purch_return() }} </td>
+                                    <td> {{$product->profit_percent}} %</td>
+{{--                                    <td>{{$product->total_sales() }} </td>--}}
+{{--                                    <td>{{$product->total_sales_return() }} </td>--}}
 
-                                    <td>{{$product->total_stock() }} </td>
+{{--                                    <td>{{$product->total_purch() }} </td>--}}
+{{--                                    <td>{{$product->total_purch_return() }} </td>--}}
 
-                                    <!-- @if (auth()->user()->hasPermission('read_products')) -->
+{{--                                    <td>{{$product->total_stock() }} </td>--}}
 
-                                    <td><a href="{{ route('dashboard.product.edit_stores',  $product->id) }}" class="btn btn-info btn-sm">@lang('site.prod_stores')</a></td>
+                                    <!-- @if (auth()->user()->hasPermission('products_read')) -->
+
+{{--                                    <td><a href="{{ route('dashboard.product.edit_stores',  $product->id) }}" class="btn btn-info btn-sm">@lang('site.prod_stores')</a></td>--}}
                                     <!-- @endif -->
                                     <td>
-                                        @if (auth()->user()->hasPermission('update_products'))
+                                        @if (auth()->user()->hasPermission('products_update'))
                                             <a href="{{ route('dashboard.products.edit', $product->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
                                         {{-- @else
                                             <a href="#" class="btn btn-info btn-sm disabled"><i class="fa fa-edit"></i> @lang('site.edit')</a> --}}
                                         @endif
-                                        @if (auth()->user()->hasPermission('delete_products'))
+                                        @if (auth()->user()->hasPermission('products_delete'))
                                             <form action="{{ route('dashboard.products.destroy', $product->id) }}" method="post" style="display: inline-block">
                                                 {{ csrf_field() }}
                                                 {{ method_field('delete') }}
@@ -133,18 +135,18 @@
                                         @endif
                                     </td>
                                 </tr>
-                            
+
                             @endforeach
                             </tbody>
 
                         </table><!-- end of table -->
-                        
+
                         {{ $products->appends(request()->query())->links() }}
-                        
+
                     @else
-                        
+
                         <h2>@lang('site.no_data_found')</h2>
-                        
+
                     @endif
 
                 </div><!-- end of box body -->

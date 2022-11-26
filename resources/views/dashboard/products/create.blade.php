@@ -7,7 +7,7 @@
             <h1>@lang('site.products')</h1>
 
             <ol class="breadcrumb">
-                <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
+                <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
                 <li><a href="{{ route('dashboard.products.index') }}"> @lang('site.products')</a></li>
                 <li class="active">@lang('site.add')</li>
             </ol>
@@ -32,17 +32,17 @@
                         <div class="form-group">
                             <label>@lang('site.categories')</label>
                             <select name="category_id" class="form-control select2 searchable">
-                                <option value="">@lang('site.all_categories')</option>
+                                <option disabled selected value="">@lang('site.all_categories')</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        
+
 
                         @foreach (config('translatable.locales') as $locale)
                             <div class="form-group">
-                            @if(count(config('translatable.locales'))>1) 
+                            @if(count(config('translatable.locales'))>1)
                                 <label>@lang('site.' . $locale . '.name')</label>
                             @else
                             <label>@lang('site.name')</label>
@@ -51,7 +51,7 @@
                             </div>
 
                             <div class="form-group">
-                            @if(count(config('translatable.locales'))>1) 
+                            @if(count(config('translatable.locales'))>1)
                                 <label>@lang('site.' . $locale . '.description')</label>
                             @else
                             <label>@lang('site.description')</label>
@@ -67,7 +67,7 @@
                         </div>
 
                         <div class="form-group">
-                            <img src="{{ asset('uploads/product_images/default.png') }}" style="width: 100px" class="img-thumbnail image-preview" alt="">
+                            <img src="{{ asset('uploads/product_images/default1.png') }}" style="width: 100px" class="img-thumbnail image-preview" alt="">
                         </div>
 
                         <div class="form-group">
@@ -79,7 +79,7 @@
                             <label>@lang('site.sale_price')</label>
                             <input type="number" name="sale_price" step="0.01" class="form-control" value="{{ old('sale_price') }}">
                         </div>
-                                                <div class="form-group">
+                        <div class="form-group">
                             <label>@lang('site.sale_havegoml')</label>
                             <input type="number" name="sale_havegoml" step="0.01" class="form-control" value="{{ old('sale_havegoml') }}">
                         </div>
