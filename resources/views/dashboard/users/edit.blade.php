@@ -67,7 +67,7 @@
                         <div class="card">
                             <div class="card-header d-flex p-0">
                                 @php
-                                    $models = ['users','categories','products'];
+                                    $models = ['users','categories','products','clients','orders'];
                                    $maps = ['create','read','update','delete'];
                                 @endphp
 

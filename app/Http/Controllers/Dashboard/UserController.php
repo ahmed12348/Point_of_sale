@@ -53,7 +53,7 @@ class UserController extends Controller
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required|unique',
+            'email' => 'required|unique:users',
             'password' => 'required|confirmed',
             'image' => 'image',
             'permissions' => 'required|min:1',

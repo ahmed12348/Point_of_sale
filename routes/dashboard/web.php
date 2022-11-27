@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\ClientController;
+use App\Http\Controllers\Dashboard\Client\OrderController;
 
 
         Route::group(
@@ -20,9 +21,10 @@ use App\Http\Controllers\Dashboard\ClientController;
 
 
                 //products controller
-                Route::resource('/products',ProductController::class)->except(['show']);
+            Route::resource('/products',ProductController::class)->except(['show']);
 
 
-                Route::resource('/clients',ClientController::class)->except(['show']);
+            Route::resource('/clients',ClientController::class)->except(['show']);
+            Route::resource('clients.orders',OrderController::class)->except(['show']);
             });
         });

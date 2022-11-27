@@ -9,7 +9,7 @@
             <h1>@lang('site.add_order')</h1>
 
             <ol class="breadcrumb">
-                <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
+                <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
                 <li><a href="{{ route('dashboard.clients.index') }}">@lang('site.clients')</a></li>
                 <li class="active">@lang('site.add_order')</li>
             </ol>
@@ -35,17 +35,15 @@
                                 </div> -->
 
                                 <div class="col-md-8">
-                                <button class="btn btn-primary btn-sm order-prods" id="order-prods"
-                                    data-url="{{ route('dashboard.orders.get_pro', [$name ?? '']) }}"
-                                    data-method="get"
-                                    
-                                    >
-                                        
+{{--                                <button class="btn btn-primary btn-sm order-prods" id="order-prods"--}}
+{{--                                    data-url="{{ route('dashboard.orders.get_pro', [$name ?? '']) }}"--}}
+{{--                                    data-method="get">--}}
+
                                     <i class="fa fa-search"></i> @lang('site.load_prods')
-                                
+
                                 </button>
                                     @if (auth()->user()->hasPermission('create_products'))
-                                    <a href="{{ route('dashboard.products.create') }}" class="btn btn-success ">@lang('site.addprod')<i class="fa fa-plus"></i></a> 
+                                    <a href="{{ route('dashboard.products.create') }}" class="btn btn-success ">@lang('site.addprod')<i class="fa fa-plus"></i></a>
                                     @endif
                                 </div>
 
@@ -91,23 +89,23 @@
                                             <br>
                                         <div class="form-group">
 
-                                                <select name="store_id" class="form-control">
-                                                    <option value="">@lang('site.all_stores')</option>
-                                                    @foreach ($stores as $store)
-                                                        <option value="{{ $store->id }}" {{ request()->stores_id == $store->id ? 'selected' : '' }}>{{ $store->name }}</option>
-                                                    @endforeach
-                                                </select>
+{{--                                                <select name="store_id" class="form-control">--}}
+{{--                                                    <option value="">@lang('site.all_stores')</option>--}}
+{{--                                                    @foreach ($stores as $store)--}}
+{{--                                                        <option value="{{ $store->id }}" {{ request()->stores_id == $store->id ? 'selected' : '' }}>{{ $store->name }}</option>--}}
+{{--                                                    @endforeach--}}
+{{--                                                </select>--}}
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                             <br>
                                         <div class="form-group">
-                                            <select name="mony_stock_id" class="form-control">
-                                                <option value="">@lang('site.all_mony_stocks')</option>
-                                                @foreach ($mony_stocks as $mony_stock)
-                                                    <option value="{{ $mony_stock->id }}" {{ request()->mony_stock_id == $mony_stock->id ? 'selected' : '' }}>{{ $mony_stock->name }}</option>
-                                                @endforeach
-                                            </select>
+{{--                                            <select name="mony_stock_id" class="form-control">--}}
+{{--                                                <option value="">@lang('site.all_mony_stocks')</option>--}}
+{{--                                                @foreach ($mony_stocks as $mony_stock)--}}
+{{--                                                    <option value="{{ $mony_stock->id }}" {{ request()->mony_stock_id == $mony_stock->id ? 'selected' : '' }}>{{ $mony_stock->name }}</option>--}}
+{{--                                                @endforeach--}}
+{{--                                            </select>--}}
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -196,59 +194,59 @@
 
                     </div><!-- end of box -->
 
-                    @if ($client->orders->count() > 0)
+{{--                    @if ($client->orders->count() > 0)--}}
 
-                        <div class="box box-primary">
+{{--                        <div class="box box-primary">--}}
 
-                            <div class="box-header">
+{{--                            <div class="box-header">--}}
 
-                                <h3 class="box-title" style="margin-bottom: 10px">@lang('site.previous_orders')
-                                    <small>{{ $orders->total() }}</small>
-                                </h3>
+{{--                                <h3 class="box-title" style="margin-bottom: 10px">@lang('site.previous_orders')--}}
+{{--                                    <small>{{ $orders->total() }}</small>--}}
+{{--                                </h3>--}}
 
-                            </div><!-- end of box header -->
+{{--                            </div><!-- end of box header -->--}}
 
-                            <div class="box-body">
+{{--                            <div class="box-body">--}}
 
-                                @foreach ($orders as $order)
+{{--                                @foreach ($orders as $order)--}}
 
-                                    <div class="panel-group">
+{{--                                    <div class="panel-group">--}}
 
-                                        <div class="panel panel-success">
+{{--                                        <div class="panel panel-success">--}}
 
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" href="#{{ $order->created_at->format('d-m-Y-s') }}">{{ $order->created_at->toFormattedDateString() }}</a>
-                                                </h4>
-                                            </div>
+{{--                                            <div class="panel-heading">--}}
+{{--                                                <h4 class="panel-title">--}}
+{{--                                                    <a data-toggle="collapse" href="#{{ $order->created_at->format('d-m-Y-s') }}">{{ $order->created_at->toFormattedDateString() }}</a>--}}
+{{--                                                </h4>--}}
+{{--                                            </div>--}}
 
-                                            <div id="{{ $order->created_at->format('d-m-Y-s') }}" class="panel-collapse collapse">
+{{--                                            <div id="{{ $order->created_at->format('d-m-Y-s') }}" class="panel-collapse collapse">--}}
 
-                                                <div class="panel-body">
+{{--                                                <div class="panel-body">--}}
 
-                                                    <ul class="list-group">
-                                                        @foreach ($order->products as $product)
-                                                            <li class="list-group-item">{{ $product->name }}</li>
-                                                        @endforeach
-                                                    </ul>
+{{--                                                    <ul class="list-group">--}}
+{{--                                                        @foreach ($order->products as $product)--}}
+{{--                                                            <li class="list-group-item">{{ $product->name }}</li>--}}
+{{--                                                        @endforeach--}}
+{{--                                                    </ul>--}}
 
-                                                </div><!-- end of panel body -->
+{{--                                                </div><!-- end of panel body -->--}}
 
-                                            </div><!-- end of panel collapse -->
+{{--                                            </div><!-- end of panel collapse -->--}}
 
-                                        </div><!-- end of panel primary -->
+{{--                                        </div><!-- end of panel primary -->--}}
 
-                                    </div><!-- end of panel group -->
+{{--                                    </div><!-- end of panel group -->--}}
 
-                                @endforeach
+{{--                                @endforeach--}}
 
-                                {{ $orders->links() }}
+{{--                                {{ $orders->links() }}--}}
 
-                            </div><!-- end of box body -->
+{{--                            </div><!-- end of box body -->--}}
 
-                        </div><!-- end of box -->
+{{--                        </div><!-- end of box -->--}}
 
-                    @endif
+{{--                    @endif--}}
 
 
                 </div><!-- end of row -->
