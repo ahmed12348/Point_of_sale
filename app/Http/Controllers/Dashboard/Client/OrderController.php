@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -28,8 +29,8 @@ class OrderController extends Controller
     public function create($id)
      {
          $client=Client::findOrFail($id);
-
-       return view('dashboard.clients.orders.create',compact('client'));
+         $categories =Category::all();
+       return view('dashboard.clients.orders.create',compact('client','categories'));
      }
     public function store(Request $request,$id)
     {
