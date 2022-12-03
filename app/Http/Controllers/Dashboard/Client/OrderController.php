@@ -29,18 +29,19 @@ class OrderController extends Controller
     public function create($id)
      {
          $client=Client::findOrFail($id);
-         $categories =Category::all();
+         $categories =Category::with('products')->get();
        return view('dashboard.clients.orders.create',compact('client','categories'));
      }
     public function store(Request $request,$id)
     {
+        dd($request->all());
         $client=Client::findOrFail($id);
-        $request->validate([
-            'name'=>'required',
-            'phone.0'=>'required',
-            'phone'=>'required|array|min:1',
-            'address'=>'required',
-        ]);
+//        $request->validate([
+//            'name'=>'required',
+//            'phone.0'=>'required',
+//            'phone'=>'required|array|min:1',
+//            'address'=>'required',
+//        ]);
         $request_data=$request->all();
         $request_data['phone'] = array_filter($request->phone);
 

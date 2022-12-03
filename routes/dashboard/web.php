@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Dashboard\WelcomeController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\ClientController;
@@ -11,7 +12,7 @@ use App\Http\Controllers\Dashboard\Client\OrderController;
             ['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function(){
 
             Route::prefix('dashboard')->name('dashboard.')->middleware(['auth'])->group(function(){
-            Route::get('/index',[App\Http\Controllers\Dashboard\DashboardController::class, 'index'])->name('index');
+            Route::get('/',[App\Http\Controllers\Dashboard\WelcomeController::class, 'index'])->name('welcome');
 
              //user controller
             Route::resource('/users',UserController::class)->except(['show']);

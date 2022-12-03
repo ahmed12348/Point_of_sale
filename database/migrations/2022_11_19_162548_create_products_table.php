@@ -19,7 +19,9 @@ class CreateProductsTable extends Migration
             $table->string('image')->default('default.png');
             $table->double('purchase_price',8,2);
             $table->double('sale_price',8,2);
-            $table->integer('stock');
+            $table->double('sale_havegoml',8,2);
+            $table->double('sale_goml',8,2);
+            $table->integer('stock')->nullable();
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

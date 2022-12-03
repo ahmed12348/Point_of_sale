@@ -21,7 +21,7 @@
                 <div class="col-lg-3 col-xs-6">
                     <div class="small-box bg-aqua">
                         <div class="inner">
-                            <h3>{{ $categories_count }}</h3>
+{{--                            <h3>{{ $categories_count }}</h3>--}}
 
                             <p>@lang('site.categories')</p>
                         </div>
@@ -36,7 +36,7 @@
                 <div class="col-lg-3 col-xs-6">
                     <div class="small-box bg-blue">
                         <div class="inner">
-                            <h3>{{ $products_count }}</h3>
+{{--                            <h3>{{ $products_count }}</h3>--}}
 
                             <p>@lang('site.products')</p>
                         </div>
@@ -51,7 +51,7 @@
                 <div class="col-lg-3 col-xs-6">
                     <div class="small-box bg-red">
                         <div class="inner">
-                            <h3>{{ $clients_count }}</h3>
+{{--                            <h3>{{ $clients_count }}</h3>--}}
 
                             <p>@lang('site.clients')</p>
                         </div>
@@ -66,49 +66,49 @@
                 <div class="col-lg-3 col-xs-6">
                     <div class="small-box bg-green">
                         <div class="inner">
-                            <h3>{{ $orders_count }}</h3>
+{{--                            <h3>{{ $orders_count }}</h3>--}}
 
                             <p>@lang('site.orders')</p>
                         </div>
                         <div class="icon">
                             <i class="fa fa-users"></i>
                         </div>
-                        <a href="{{ route('dashboard.orders.index') }}" class="small-box-footer">@lang('site.read') <i class="fa fa-arrow-circle-right"></i></a>
+{{--                        <a href="{{ route('dashboard.orders.index') }}" class="small-box-footer">@lang('site.read') <i class="fa fa-arrow-circle-right"></i></a>--}}
                     </div>
                 </div>
                 {{--suppliers--}}
                 <div class="col-lg-3 col-xs-6">
                     <div class="small-box bg-yellow">
                         <div class="inner">
-                            <h3>{{ $suppliers_count }}</h3>
+{{--                            <h3>{{ $suppliers_count }}</h3>--}}
 
                             <p>@lang('site.suppliers')</p>
                         </div>
                         <div class="icon">
                             <i class="fa fa-users"></i>
                         </div>
-                        <a href="{{ route('dashboard.suppliers.index') }}" class="small-box-footer">@lang('site.read') <i class="fa fa-arrow-circle-right"></i></a>
+{{--                        <a href="{{ route('dashboard.suppliers.index') }}" class="small-box-footer">@lang('site.read') <i class="fa fa-arrow-circle-right"></i></a>--}}
                     </div>
                 </div>
                 {{--orders_suppliers--}}
                 <div class="col-lg-3 col-xs-6">
                     <div class="small-box bg-red">
                         <div class="inner">
-                            <h3>{{ $orders_suppliers_count }}</h3>
+{{--                            <h3>{{ $orders_suppliers_count }}</h3>--}}
 
                             <p>@lang('site.orders_suppliers')</p>
                         </div>
                         <div class="icon">
                             <i class="fa fa-users"></i>
                         </div>
-                        <a href="{{ route('dashboard.orders_suppliers.index') }}" class="small-box-footer">@lang('site.read') <i class="fa fa-arrow-circle-right"></i></a>
+{{--                        <a href="{{ route('dashboard.orders_suppliers.index') }}" class="small-box-footer">@lang('site.read') <i class="fa fa-arrow-circle-right"></i></a>--}}
                     </div>
                 </div>
                 {{--users--}}
                 <div class="col-lg-3 col-xs-6">
                     <div class="small-box bg-blue">
                         <div class="inner">
-                            <h3>{{ $users_count }}</h3>
+{{--                            <h3>{{ $users_count }}</h3>--}}
 
                             <p>@lang('site.users')</p>
                         </div>
