@@ -76,8 +76,8 @@
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $client->name }}</td>
                                     <td>{{ $client->address }}</td>
-{{--          <td>{{ is_array($client->phone) ? implode($client->phone, '-') : $client->phone }}</td>--}}
-          <td><span class="badge badge-info">{{ implode($client->phone,' -- ') }}</span></td>
+          <td>{{ is_array($client->phone) ? implode($client->phone, '-') : $client->phone }}</td>
+{{--          <td><span class="badge badge-info">{{ implode($client->phone,' -- ') }}</span></td>--}}
 
 {{-- <td>{{ $client->phone[0] }}</td>--}}
 {{--   <td>{{ $client->phone1 }}</td>--}}
