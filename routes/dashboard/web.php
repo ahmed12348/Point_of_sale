@@ -26,6 +26,12 @@ use App\Http\Controllers\Dashboard\Client\OrderController;
 
 
             Route::resource('/clients',ClientController::class)->except(['show']);
+
+//             Route::resource('/clients.orders', [App\Http\Controllers\Dashboard\Client\OrderController::class])->except(['show']);
+
             Route::resource('clients.orders',OrderController::class)->except(['show']);
+//
+            Route::resource('/orders',App\Http\Controllers\Dashboard\OrderController::class)->except(['show']);
+
             });
         });

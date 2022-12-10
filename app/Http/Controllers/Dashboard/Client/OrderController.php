@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard\Client;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Client;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -34,20 +35,32 @@ class OrderController extends Controller
      }
     public function store(Request $request,$id)
     {
-        dd($request->all());
-        $client=Client::findOrFail($id);
-//        $request->validate([
-//            'name'=>'required',
-//            'phone.0'=>'required',
-//            'phone'=>'required|array|min:1',
-//            'address'=>'required',
-//        ]);
-        $request_data=$request->all();
-        $request_data['phone'] = array_filter($request->phone);
+//        dd($request->all() );
+         $client=Client::findOrFail($id);
+         $request->validate([
+            'products'=>'required|array',
+        ]);
+        //save in order
+         $order = $client->orders()->create();
+         $order->products()->attach($request->products);
+         $total_price=0;
 
-        Client::create($request_data);
+//  return $request->all;
+        foreach ($request->products as $id => $quantity){
+//                 return $quantity['quantity'];
+//            dd($quantity['quantity']);
+            $product=Product::findOrFail($id);
+            $total_price +=$product->sale_price * $quantity['quantity'];
+            $product->update([
+                'stock' => $product->stock - $quantity['quantity']
+            ]);
+        }
+        $order->update([
+            'total_price' => $total_price
+        ]);
+
         Session::flash('success',  __('site.created_successfully'));
-        return redirect()->route('dashboard.clients.index');
+        return redirect()->route('dashboard.orders.index');
     }
 
 

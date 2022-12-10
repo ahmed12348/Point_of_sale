@@ -9,11 +9,12 @@ class Order extends Model
 {
     public $guarded = [];
 
-    public function clients()
+
+    public function client()
     {
         return $this->belongsTo(Client::class);
-    }
 
+    }
     public function products(){
         return $this->belongsToMany(Product::class,'product_order');
     }

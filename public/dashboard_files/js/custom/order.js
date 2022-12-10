@@ -9,11 +9,17 @@ $(document).ready(function () {
         var name = $(this).data('name');
         // alert(name);
         var id = $(this).data('id');
+        // alert(id);
         var price = $(this).data('price').toFixed(2);
 
         // var price = $.number($(this).data('price'),2);
        // var price =  $(this).closest('tr').find('price').val(); //150
 
+        // <td><input type="number" name="products[${id}][quantity]" step="0.01"  data-price="${price}" class="form-control input-sm product-quantity" min="1" value="1"></td>
+        // <td><input type="number" name="products[${id}][price]"  step="0.01" class="form-control input-sm product-price1" min="0" value=${price}></td>
+        // <td><input type="number" name="products[${id}][transport]" step="0.01" class="form-control input-sm product-transport" min="0" value="0"></td>
+
+        // $request->quantities[$index]
         //var quantity = Number($(this).data('quantity'), 2);
      //   alert(id);
 
@@ -21,15 +27,9 @@ $(document).ready(function () {
 
         var html =
             `<tr>
-                <td>${name}</td>
-                <td><input type="number" name="products[${id}][quantity]" step="0.01"  data-price="${price}" class="form-control input-sm product-quantity" min="1" value="1"></td>
-                <td><input type="number" name="products[${id}][price]"  step="0.01" class="form-control input-sm product-price1" min="0" value=${price}></td>
-                <td><input type="number" name="products[${id}][transport]" step="0.01" class="form-control input-sm product-transport" min="0" value="0"></td>
-
-                <td class="product-price">${price}</td>
-
-
-
+                 <td>${name}</td>
+              <td><input type="number" name="products[${id}][quantity]" step="0.01"  data-price="${price}" class="form-control input-sm product-quantity" min="1" value="1"></td>
+                 <td class="product-price">${price}</td>
                 <td><button class="btn btn-danger btn-sm remove-product-btn" data-id="${id}"><span class="fa fa-trash"></span></button></td>
             </tr>`;
         $('.order-list').append(html);
@@ -86,6 +86,7 @@ $(document).ready(function () {
 
         var transport = parseFloat($(this).val()); //2
         var quantity = Number($(this).val()); //2
+        // alert(quantity);
         var unitPrice =  $(this).closest('tr').find('.product-price1').val(); //150
         // alert(unitPrice);
         // + transport
@@ -225,7 +226,7 @@ function calculateTotal() {
         price += parseFloat($(this).html());
     });
 
-
+// alert(price);
        $('.total-price').html(Number(price, 2));
     // alert(price);
        // var disc1 = parseFloat($('.disc1').val()); //150

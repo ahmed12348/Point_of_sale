@@ -37,9 +37,9 @@
 {{--                <li><a href="{{ route('dashboard.suppliers.index') }}"><i class="fa fa-th"></i><span>@lang('site.suppliers')</span></a></li>--}}
 {{--            @endif--}}
 
-{{--            @if (auth()->user()->hasPermission('read_orders'))--}}
-{{--                <li><a href="{{ route('dashboard.orders.index') }}"><i class="fa fa-th"></i><span>@lang('site.orders')</span></a></li>--}}
-{{--            @endif--}}
+            @if (auth()->user()->hasPermission('orders_read'))
+                <li><a href="{{ route('dashboard.orders.index') }}"><i class="fa fa-th"></i><span>@lang('site.orders')</span></a></li>
+            @endif
 
 {{--            @if (auth()->user()->hasPermission('read_orders_suppliers'))--}}
 {{--                <li><a href="{{ route('dashboard.orders_suppliers.index') }}"><i class="fa fa-th"></i><span>@lang('site.orders_suppliers')</span></a></li>--}}
