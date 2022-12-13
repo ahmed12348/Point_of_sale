@@ -15,56 +15,89 @@
             </ol>
         </section>
 
- <section class="content">
+        <section class="content">
 
             <div class="row">
 
+                <div class="col-md-6">
 
-                <div class="box box-primary">
+                    <div class="box box-primary">
 
-                    <div class="box-header">
+                        <div class="box-header">
 
-                        <!-- <h3 class="box-title" style="margin-bottom: 10px">@lang('site.categories')</h3>
-                        <a href="{{ route('dashboard.categories.create') }}" class="btn btn-success ">@lang('site.addcateg')<i class="fa fa-plus"></i></a>
-                            <br> -->
-                            <br>
-                        <form >
-                        <div class="row">
-                            <div class="col-md-8">
-                            <button class="btn btn-primary btn-sm order-prods" id="order-prods"
-                                data-url="{{ route('dashboard.orders.get_pro', [$name ?? '']) }}"
-                                data-method="get"
-                                
-                                >
-                                    
-                                <i class="fa fa-search"></i> @lang('site.load_prods')
-                            
-                            </button>
-                                @if (auth()->user()->hasPermission('create_products'))
-                                <a href="{{ route('dashboard.products.create') }}" class="btn btn-success ">@lang('site.addprod')<i class="fa fa-plus"></i></a> 
-                                @endif
-                            </div>
+                            <h3 class="box-title" style="margin-bottom: 10px">@lang('site.categories')</h3>
 
-                        </div>
-                        </form><!-- end of form -->
+                        </div><!-- end of box header -->
 
+                        <div class="box-body">
 
-                    </div><!-- end of box header -->
+                            @foreach ($categories as $category)
 
-                    <div class="box-body">
-                    <div id="order-prod-list">
+                                <div class="panel-group">
 
-                    </div><!-- end of order product list -->
+                                    <div class="panel panel-info">
 
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#{{ str_replace(' ', '-', $category->name) }}">{{ $category->name }}</a>
+                                            </h4>
+                                        </div>
 
+                                        <div id="{{ str_replace(' ', '-', $category->name) }}" class="panel-collapse collapse">
 
-                    </div><!-- end of box body -->
+                                            <div class="panel-body">
 
-                </div><!-- end of box -->
+                                                @if ($category->products->count() > 0)
 
-            </div><!-- end of col -->
+                                                    <table class="table table-hover">
+                                                        <tr>
+                                                            <th>@lang('site.name')</th>
+                                                            <th>@lang('site.stock')</th>
+                                                            <th>@lang('site.price')</th>
+                                                            <th>@lang('site.add')</th>
+                                                        </tr>
 
-            <div class="row">
+                                                        @foreach ($category->products as $product)
+                                                            <tr>
+                                                                <td>{{ $product->name }}</td>
+                                                                <td>{{ $product->stock }}</td>
+                                                                <td>{{ $product->sale_price }}</td>
+                                                                <td>
+                                                                    <a href=""
+                                                                       id="product-{{ $product->id }}"
+                                                                       data-name="{{ $product->name }}"
+                                                                       data-id="{{ $product->id }}"
+                                                                       data-price="{{ $product->sale_price }}"
+                                                                       class="btn {{ in_array($product->id, $order->products->pluck('id')->toArray()) ? 'btn-default disabled' : 'btn-success add-product-btn' }} btn-sm">
+                                                                        <i class="fa fa-plus"></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+
+                                                    </table><!-- end of table -->
+
+                                                @else
+                                                    <h5>@lang('site.no_records')</h5>
+                                                @endif
+
+                                            </div><!-- end of panel body -->
+
+                                        </div><!-- end of panel collapse -->
+
+                                    </div><!-- end of panel primary -->
+
+                                </div><!-- end of panel group -->
+
+                            @endforeach
+
+                        </div><!-- end of box body -->
+
+                    </div><!-- end of box -->
+
+                </div><!-- end of col -->
+
+                <div class="col-md-6">
 
                     <div class="box box-primary">
 
@@ -78,100 +111,17 @@
 
                             @include('partials._errors')
 
-                  <form action="{{ route('dashboard.clients.orders.update', ['order' => $order->id, 'client' => $client->id]) }}" method="post">
+                            <form action="{{ route('dashboard.clients.orders.update', ['order' => $order->id, 'client' => $client->id]) }}" method="post">
 
                                 {{ csrf_field() }}
                                 {{ method_field('put') }}
-                               
-                      <div class="row">
 
-                        <div class="col-md-3">
-
-                            <div class="form-group">
-                                <select name="store_id" class="form-control">
-                                    <option value="">@lang('site.all_stores')</option>
-                                    @foreach ($stores as $store)
-                                        <option value="{{ $store->id }}" {{ $order->store_id == $store->id ? 'selected' : '' }}>{{ $store->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-
-                            <div class="form-group">
-                            <select name="mony_stock_id" class="form-control">
-                                    <option value="">@lang('site.all_mony_stocks')</option>
-                                    @foreach ($mony_stocks as $mony_stock)
-                                        <option value="{{ $mony_stock->id }}" {{ $order->mony_stock_id == $mony_stock->id ? 'selected' : '' }}>{{ $mony_stock->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                         </div>
-
-                        <div class="col-md-3">
-                            <div class="form-group">
-                            <label>@lang('site.order_date')</label>
-                            <input type="date" name="order_date" class="form-control" value="{{ $order->order_date }}">
-
-                            </div>
-                         </div>
-                         <div class="col-md-3">
-                                        <div class="form-group">
-                                        <label>@lang('site.disc1')</label>
-                                        <input type="double" name="disc1" step="1" min="0" class="form-control disc1" value="{{ $order->disc1 }}">
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                <div class="row">
-
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                        <label>@lang('site.disc2')</label>
-                                        <input type="double" name="disc2" step="1" min="0" class="form-control disc2" value="{{ $order->disc2 }}">
-
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                        <label>@lang('site.disc3')</label>
-                                        <input type="double" name="disc3" step="1" min="0" class="form-control disc3" value="{{ $order->disc3 }}">
-
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                        <label>@lang('site.adds1')</label>
-                                        <input type="double" name="adds1" step="1" min="0" class="form-control adds1" value="{{ $order->adds1 }}">
-
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                        <label>@lang('site.adds2')</label>
-                                        <input type="double" name="adds2" step="1" min="0" class="form-control adds2" value="{{ $order->adds2 }}">
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            <br>
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
                                         <th>@lang('site.product')</th>
                                         <th>@lang('site.quantity')</th>
                                         <th>@lang('site.price')</th>
-                                        <th>@lang('site.transport')</th>
-
-                                        <th>@lang('site.total')</th>
                                     </tr>
                                     </thead>
 
@@ -180,11 +130,8 @@
                                     @foreach ($order->products as $product)
                                         <tr>
                                             <td>{{ $product->name }}</td>
-                                            <td><input type="double" name="products[{{ $product->id }}][quantity]" data-price="{{ number_format($product->sale_price, 2) }}" class="form-control input-sm product-quantity" min="1" value="{{ $product->pivot->quantity }}"></td>
-                                            <td><input type="double" name="products[{{ $product->id }}][price]"  class="form-control input-sm product-price1" min="1" value="{{ $product->pivot->price }}"></td>
-                                            <td><input type="double" name="products[{{ $product->id }}][transport]"  class="form-control input-sm product-transport" min="1" value="{{ $product->pivot->transport }}"></td>
-
-                                            <td class="product-price">{{ number_format($product->pivot->price * $product->pivot->quantity +  $product->pivot->transport, 2) }}</td>
+                                            <td><input type="number" name="products[{{ $product->id }}][quantity]" data-price="{{ number_format($product->sale_price, 2) }}" class="form-control input-sm product-quantity" min="1" value="{{ $product->pivot->quantity }}"></td>
+                                            <td class="product-price">{{ number_format($product->sale_price * $product->pivot->quantity, 2) }}</td>
                                             <td>
                                                 <button class="btn btn-danger btn-sm remove-product-btn" data-id="{{ $product->id }}"><span class="fa fa-trash"></span></button>
                                             </td>
@@ -203,7 +150,7 @@
 
                         </div><!-- end of box body -->
 
-                      </div><!-- end of box -->
+                    </div><!-- end of box -->
 
                     @if ($client->orders->count() > 0)
 

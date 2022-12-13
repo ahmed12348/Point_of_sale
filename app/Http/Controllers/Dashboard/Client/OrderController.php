@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard\Client;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Client;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -66,13 +67,17 @@ class OrderController extends Controller
 
     public function edit($id,$o_id)
     {
+        $orders= Order::paginate(5);
         $client=Client::findOrFail($id);
-        $order=Client::findOrFail($o_id);
-        return view('dashboard.clients.edit',compact('client'));
+        $order=Order::findOrFail($o_id);
+        $categories =Category::with('products')->get();
+
+        return view('dashboard.clients.orders.edit',compact('client','order','categories','orders'));
     }
 
     public function update(Request $request,$id,$o_id)
     {
+        dd($request->all());
         $client=Client::findOrFail($id);
         $order=Client::findOrFail($o_id);
 

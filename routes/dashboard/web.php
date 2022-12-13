@@ -32,6 +32,7 @@ use App\Http\Controllers\Dashboard\Client\OrderController;
             Route::resource('clients.orders',OrderController::class)->except(['show']);
 //
             Route::resource('/orders',App\Http\Controllers\Dashboard\OrderController::class)->except(['show']);
+            Route::get('/orders/{id}/products',[App\Http\Controllers\Dashboard\OrderController::class,'products'])->name('orders.products');
 
             });
         });

@@ -28,7 +28,7 @@ $(document).ready(function () {
         var html =
             `<tr>
                  <td>${name}</td>
-              <td><input type="number" name="products[${id}][quantity]" step="0.01"  data-price="${price}" class="form-control input-sm product-quantity" min="1" value="1"></td>
+                <td><input type="number" name="products[${id}][quantity]" data-price="${price}" class="form-control input-sm product-quantity" min="1" value="1"></td>
                  <td class="product-price">${price}</td>
                 <td><button class="btn btn-danger btn-sm remove-product-btn" data-id="${id}"><span class="fa fa-trash"></span></button></td>
             </tr>`;
@@ -84,16 +84,14 @@ $(document).ready(function () {
     //change product quantity
     $('body').on('keyup change', '.product-quantity', function() {
 
-        var transport = parseFloat($(this).val()); //2
         var quantity = Number($(this).val()); //2
-        // alert(quantity);
-        var unitPrice =  $(this).closest('tr').find('.product-price1').val(); //150
-        // alert(unitPrice);
-        // + transport
-        $(this).closest('tr').find('.product-price').html(Number(quantity * unitPrice , 2).toFixed(2));
+        var unitPrice = parseFloat($(this).data('price').replace(/,/g, '')); //150
+        console.log(unitPrice);
+        $(this).closest('tr').find('.product-price').html($.number(quantity * unitPrice, 2));
         calculateTotal();
 
     });//end of product quantity change
+
     //change product quantity
     $('body').on('keyup change', '.disc1', function() {
 
@@ -158,18 +156,15 @@ $(document).ready(function () {
         });//end of product price change
         //list all order products
         $('.order-products').on('click', function(e) {
-
             e.preventDefault();
 
             $('#loading').css('display', 'flex');
-
             var url = $(this).data('url');
             var method = $(this).data('method');
             $.ajax({
                 url: url,
                 method: method,
                 success: function(data) {
-
                     $('#loading').css('display', 'none');
                     $('#order-product-list').empty();
                     $('#order-product-list').append(data);
@@ -216,7 +211,6 @@ $(document).ready(function () {
     });//end of click function
 
 });//end of document ready
-
 //calculate the total
 function calculateTotal() {
 
