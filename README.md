@@ -1,61 +1,39 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<!-- # Laravel Pharmacy App
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+# Description:
+> Build a system using Laravel framework for a mini Pharmacy where any user  can add pharmacies and products to them, and also he can add price and quantity of every Product in every pharmacy.
 
-## About Laravel
+# Build Database: 
+ 1. pharmacies (name & address):
+ 2. Products: [title,description,image]
+ 3. ProductPharmacy: [product_id,pharmacy_id,quantity,price]
+  >Notes:
+   1. product_id is the id of product.(F.K).
+   2. pharmacy_id is the id of pharmacy (F.K).
+   3. Price is the product price in specific pharmacy refered by pharmacy_id.
+   3. quantity is the product quantity in this pharmacy :)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# start work:
+ 1. make Models, Migration & relations between tables plus laravel UI.
+ 2. `composer require laravel/ui`.
+ 3. make CRUD For Product and Pharmacy plus addPrice and quantity for for every product in every pharmacy, Extra search on product in product dashboard page :) and rendering products like :).
+ 4. make command Line for search and get The Five cheapest prices for product given and the pharmacies details `php artisan products:search-cheapest 2`.
+ 5. Make Pharmacy Api with Resources for rendering json data `http://127.0.0.1:8000/api/v1/pharmacies` and for products `http://127.0.0.1:8000/api/v1/products`
+ 6. and Search product query by title or address `127.0.0.1:8000/api/v1/products?title[eq]=ddd&description[like]=kkdkkd`
+ 6. make Factories and seeders for create 50K products and 20K pharmacies and their relation :) for testing :) `php artisan  migrate:fresh seed`.
+ 7. Complete All Coding Until Finish :)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Steps To Run This Pharmacy:
+  To clone the project you must follow the following steps:
+  1. Navigate to the main page of the repository.
+  2. Above the list of files, click Code button and copy the https link.
+  3. Go to your visual studio code editor then open the terminal and write this command git clone with https linK.
+  4. Copy .env.example file to .env on the root folder. You can type copy .env.example .env if using command prompt Windows or cp .env.example .env if using terminal, Ubuntu.
+  5. Open your .env file and change the database name to `pharmacydb`, username (DB_USERNAME) and password (DB_PASSWORD) field correspond to your configuration.
+  6. open Mysql Host and create Database with `pharmacydb` with your above configuration.
+  6. Run `composer install`
+  6. Run `php artisan key:generate`
+  7. Run `php artisan migrate`
+  8. Run `php artisan db:seed` if you want to make atest on some faker data :)
+  9. Run `php artisan serve` and start Manage products & pharmacies in Pharmacy App :)  -->
