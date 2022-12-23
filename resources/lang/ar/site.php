@@ -2,8 +2,9 @@
 
 return [
     'Dashboard'   => 'الرئيسيه',
+    'title'   => 'المنصة الذهبية',
     'dashboard'   => 'الرئيسيه',
-    'users'   => 'المستخدمين',
+    'users'   => 'المشرفين',
     'no_data_found'   => 'لا يوجد اي سجلات',
     'first_name'   => 'الاسم الاول',
     'last_name'   => 'الاسم الاخير',
@@ -26,6 +27,7 @@ return [
     'added_successfully'   => 'تم الاضافة بنجاح',
     'updated_successfully'   => 'تم التعديل بنجاح',
     'deleted_successfully'   => 'تم الحذف بنجاح',
+    'related_products'   => ' منتجات القسم',
     'products'   => 'المنتجات',
     'categories'   => 'الاقسام',
     'confirm_delete'   => 'هل انت متأكد من الحذف',
@@ -65,6 +67,7 @@ return [
     'all_stores' =>' جميع المتاجر ',
     'transport' =>' التحويل ',
     'edit_order' =>' تعديل الطلب ',
+    'client_name' =>'  اسم العميل ',
 
     'ar' =>[
         'name' => 'الاسم بالغه العربية',

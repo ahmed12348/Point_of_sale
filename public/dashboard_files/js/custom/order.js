@@ -205,8 +205,11 @@ $(document).ready(function () {
 
     //print order
     $(document).on('click', '.print-btn', function() {
+        $('#print-area').printThis({
+            header: null,
+            footer: null,
+        });
 
-        $('#print-area').printThis();
 
     });//end of click function
 

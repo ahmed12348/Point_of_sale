@@ -1,0 +1,9 @@
+- Admin LTE (RTL and LTR)
+-specify lang in url ( اسم ال package)
+-adding new admin with specific permitions
+-adding new product 
+geting category relatec products
+adding new clients
+adding new order for client 
+editing order and printing it
+dashboard main page with details and floatchart

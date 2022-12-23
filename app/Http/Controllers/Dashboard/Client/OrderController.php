@@ -14,9 +14,8 @@ class OrderController extends Controller
 {
     public function index(Request $request)
     {
+
         $clients= Client::paginate(5);
-
-
         $clients= Client::when($request->search , function ($q) use ($request){
 
             return $q->where('name','like','%' .$request->search. '%')
@@ -30,9 +29,10 @@ class OrderController extends Controller
     }
     public function create($id)
      {
-         $client=Client::findOrFail($id);
+          $client=Client::findOrFail($id);
+         $orders= $client->orders()->with('products')->paginate(5);
          $categories =Category::with('products')->get();
-       return view('dashboard.clients.orders.create',compact('client','categories'));
+       return view('dashboard.clients.orders.create',compact('client','categories','orders'));
      }
     public function store(Request $request,$id)
     {
@@ -41,24 +41,8 @@ class OrderController extends Controller
          $request->validate([
             'products'=>'required|array',
         ]);
-        //save in order
-         $order = $client->orders()->create();
-         $order->products()->attach($request->products);
-         $total_price=0;
-
-//  return $request->all;
-        foreach ($request->products as $id => $quantity){
-//                 return $quantity['quantity'];
-//            dd($quantity['quantity']);
-            $product=Product::findOrFail($id);
-            $total_price +=$product->sale_price * $quantity['quantity'];
-            $product->update([
-                'stock' => $product->stock - $quantity['quantity']
-            ]);
-        }
-        $order->update([
-            'total_price' => $total_price
-        ]);
+         //save in order
+         $this->attach_order($request,$client);
 
         Session::flash('success',  __('site.created_successfully'));
         return redirect()->route('dashboard.orders.index');
@@ -77,20 +61,15 @@ class OrderController extends Controller
 
     public function update(Request $request,$id,$o_id)
     {
-        dd($request->all());
+//        dd($request->all());
         $client=Client::findOrFail($id);
-        $order=Client::findOrFail($o_id);
-
-        $request->validate([
-            'name'=>'required',
-            'phone.0'=>'required',
-            'phone'=>'required|array|min:1',
-            'address'=>'required',
-        ]);
-        $request_data=$request->all();
-        $request_data['phone'] = array_filter($request->phone);
-        $client->update($request_data);
-        Session::flash('success',  __('site.created_successfully'));
+        $order=Order::findOrFail($o_id);
+//        $request->validate([
+//            'products'=>'required|array',
+//        ]);
+        $this->detach_order($order);
+        $this->attach_order($request,$client);
+        Session::flash('success',  __('site.updated_successfully'));
         return redirect()->route('dashboard.clients.index');
     }
 
@@ -98,10 +77,41 @@ class OrderController extends Controller
     public function destroy($id,$o_id)
     {
         $client=Client::findOrFail($id);
-        $order=Client::findOrFail($o_id);
+        $order=Order::findOrFail($o_id);
         $client->delete();
         Session::flash('success',  __('site.deleted_successfully'));
         return redirect()->route('dashboard.clients.index');
 
     }
+
+    private function attach_order($request,$client)
+    {
+
+        $order = $client->orders()->create();
+        $order->products()->attach($request->products);
+        $total_price=0;
+        foreach ($request->products as $id => $quantity){
+            $product=Product::findOrFail($id);
+            $total_price +=$product->sale_price * $quantity['quantity'];
+            $product->update([
+                'stock' => $product->stock - $quantity['quantity']
+            ]);
+        }
+        $order->update([
+            'total_price' => $total_price
+        ]);
+    }//end attach_order function
+
+    private function detach_order($order)
+    {
+//        $order=Order::findOrFail($id);
+        foreach ($order->products as $product)
+        {
+            $product->update([
+                'stock' => $product->stock + $product->pivot->quantity
+            ]);
+            $product->pivot->delete();
+        }
+        $order->delete();
+    } //end detach_order function
 }

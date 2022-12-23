@@ -67,7 +67,7 @@
                         </div>
 
                         <div class="form-group">
-                            <img src="{{ asset('uploads/product_images/default1.png') }}" style="width: 100px" class="img-thumbnail image-preview" alt="">
+                            <img src="{{ asset('uploads/product_images/default.png') }}" style="width: 100px" class="img-thumbnail image-preview" alt="">
                         </div>
 
                         <div class="form-group">
@@ -79,20 +79,11 @@
                             <label>@lang('site.sale_price')</label>
                             <input type="number" name="sale_price" step="0.01" class="form-control" value="{{ old('sale_price') }}">
                         </div>
-                        <div class="form-group">
-                            <label>@lang('site.sale_havegoml')</label>
-                            <input type="number" name="sale_havegoml" step="0.01" class="form-control" value="{{ old('sale_havegoml') }}">
-                        </div>
 
                         <div class="form-group">
-                            <label>@lang('site.sale_goml')</label>
-                            <input type="number" name="sale_goml" step="0.01" class="form-control" value="{{ old('sale_goml') }}">
-                        </div>
-
-                        <!-- <div class="form-group">
                             <label>@lang('site.stock')</label>
                             <input type="number" name="stock" class="form-control" value="{{ old('stock') }}">
-                        </div> -->
+                        </div>
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</button>

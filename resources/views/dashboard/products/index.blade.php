@@ -68,61 +68,29 @@
                                 <th>@lang('site.image')</th>
                                 <th>@lang('site.purchase_price')</th>
                                 <th>@lang('site.sale_price')</th>
-                                <th>@lang('site.sale_havegoml')</th>
-                                <th>@lang('site.sale_goml')</th>
-                                <th>@lang('site.first_stock') </th>
-                                <th>@lang('site.total_sales') </th>
-                                <th>@lang('site.total_sales_return') </th>
-                                <th>@lang('site.profit_percent') </th>
-                                <th>@lang('site.total_purch') </th>
-                                <th>@lang('site.total_purch_return') </th>
-
-                                <th>@lang('site.stock') </th>
-
-                                <th>@lang('site.stores')</th>
-                                @if (auth()->user()->hasPermission('update_products','delete_products'))
-
+                                <th>@lang('site.profit_percent') %</th>
+                                <th>@lang('site.stock')</th>
                                 <th>@lang('site.action')</th>
-                                @endif
                             </tr>
                             </thead>
 
                             <tbody>
                             @foreach ($products as $index=>$product)
-
                                 <tr>
-                                    <!-- <td>{{ $index + 1 }}</td> -->
-                                    <td>{{ $product->id }}</td>
-
+                                    <td>{{ $index + 1 }}</td>
                                     <td>{{ $product->name }}</td>
                                     <td>{!! $product->description !!}</td>
                                     <td>{{ $product->category->name }}</td>
-                                    <td><img src="{{ $product->image_path }}" style="width: 60px; height:60px"  class="img-thumbnail" alt=""></td>
+                                    <td><img src="{{ $product->image_path }}" style="width: 100px"  class="img-thumbnail" alt=""></td>
                                     <td>{{ $product->purchase_price }}</td>
                                     <td>{{ $product->sale_price }}</td>
-                                    <td>{{ $product->sale_havegoml }}</td>
-
-                                     <td>{{ $product->sale_goml }}</td>
-{{--                                     <td>{{$product->total_first_stock() }} </td>--}}
-
-                                    <td> {{$product->profit_percent}} %</td>
-{{--                                    <td>{{$product->total_sales() }} </td>--}}
-{{--                                    <td>{{$product->total_sales_return() }} </td>--}}
-
-{{--                                    <td>{{$product->total_purch() }} </td>--}}
-{{--                                    <td>{{$product->total_purch_return() }} </td>--}}
-
-{{--                                    <td>{{$product->total_stock() }} </td>--}}
-
-                                    <!-- @if (auth()->user()->hasPermission('products_read')) -->
-
-{{--                                    <td><a href="{{ route('dashboard.product.edit_stores',  $product->id) }}" class="btn btn-info btn-sm">@lang('site.prod_stores')</a></td>--}}
-                                    <!-- @endif -->
+                                    <td>{{ $product->profit_percent }} %</td>
+                                    <td>{{ $product->stock }}</td>
                                     <td>
                                         @if (auth()->user()->hasPermission('products_update'))
                                             <a href="{{ route('dashboard.products.edit', $product->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
-                                        {{-- @else
-                                            <a href="#" class="btn btn-info btn-sm disabled"><i class="fa fa-edit"></i> @lang('site.edit')</a> --}}
+                                        @else
+                                            <a href="#" class="btn btn-info btn-sm disabled"><i class="fa fa-edit"></i> @lang('site.edit')</a>
                                         @endif
                                         @if (auth()->user()->hasPermission('products_delete'))
                                             <form action="{{ route('dashboard.products.destroy', $product->id) }}" method="post" style="display: inline-block">
@@ -130,8 +98,8 @@
                                                 {{ method_field('delete') }}
                                                 <button type="submit" class="btn btn-danger delete btn-sm"><i class="fa fa-trash"></i> @lang('site.delete')</button>
                                             </form><!-- end of form -->
-                                        {{-- @else
-                                            <button class="btn btn-danger btn-sm disabled"><i class="fa fa-trash"></i> @lang('site.delete')</button> --}}
+                                        @else
+                                            <button class="btn btn-danger btn-sm disabled"><i class="fa fa-trash"></i> @lang('site.delete')</button>
                                         @endif
                                     </td>
                                 </tr>

@@ -21,7 +21,7 @@
                 <div class="col-lg-3 col-xs-6">
                     <div class="small-box bg-aqua">
                         <div class="inner">
-{{--                            <h3>{{ $categories_count }}</h3>--}}
+                            <h3>{{ $categories_count }}</h3>
 
                             <p>@lang('site.categories')</p>
                         </div>
@@ -34,9 +34,9 @@
 
                 {{--products--}}
                 <div class="col-lg-3 col-xs-6">
-                    <div class="small-box bg-blue">
+                    <div class="small-box bg-green">
                         <div class="inner">
-{{--                            <h3>{{ $products_count }}</h3>--}}
+                            <h3>{{ $products_count }}</h3>
 
                             <p>@lang('site.products')</p>
                         </div>
@@ -51,7 +51,7 @@
                 <div class="col-lg-3 col-xs-6">
                     <div class="small-box bg-red">
                         <div class="inner">
-{{--                            <h3>{{ $clients_count }}</h3>--}}
+                            <h3>{{ $clients_count }}</h3>
 
                             <p>@lang('site.clients')</p>
                         </div>
@@ -62,53 +62,11 @@
                     </div>
                 </div>
 
-                {{--orders--}}
-                <div class="col-lg-3 col-xs-6">
-                    <div class="small-box bg-green">
-                        <div class="inner">
-{{--                            <h3>{{ $orders_count }}</h3>--}}
-
-                            <p>@lang('site.orders')</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fa fa-users"></i>
-                        </div>
-{{--                        <a href="{{ route('dashboard.orders.index') }}" class="small-box-footer">@lang('site.read') <i class="fa fa-arrow-circle-right"></i></a>--}}
-                    </div>
-                </div>
-                {{--suppliers--}}
+                {{--users--}}
                 <div class="col-lg-3 col-xs-6">
                     <div class="small-box bg-yellow">
                         <div class="inner">
-{{--                            <h3>{{ $suppliers_count }}</h3>--}}
-
-                            <p>@lang('site.suppliers')</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fa fa-users"></i>
-                        </div>
-{{--                        <a href="{{ route('dashboard.suppliers.index') }}" class="small-box-footer">@lang('site.read') <i class="fa fa-arrow-circle-right"></i></a>--}}
-                    </div>
-                </div>
-                {{--orders_suppliers--}}
-                <div class="col-lg-3 col-xs-6">
-                    <div class="small-box bg-red">
-                        <div class="inner">
-{{--                            <h3>{{ $orders_suppliers_count }}</h3>--}}
-
-                            <p>@lang('site.orders_suppliers')</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fa fa-users"></i>
-                        </div>
-{{--                        <a href="{{ route('dashboard.orders_suppliers.index') }}" class="small-box-footer">@lang('site.read') <i class="fa fa-arrow-circle-right"></i></a>--}}
-                    </div>
-                </div>
-                {{--users--}}
-                <div class="col-lg-3 col-xs-6">
-                    <div class="small-box bg-blue">
-                        <div class="inner">
-{{--                            <h3>{{ $users_count }}</h3>--}}
+                            <h3>{{ $users_count }}</h3>
 
                             <p>@lang('site.users')</p>
                         </div>
@@ -119,9 +77,18 @@
                     </div>
                 </div>
 
-
             </div><!-- end of row -->
 
+            <div class="box box-solid">
+
+                <div class="box-header">
+                    <h3 class="box-title">Sales Graph</h3>
+                </div>
+                <div class="box-body border-radius-none">
+                    <div class="chart" id="line-chart" style="height: 250px;"></div>
+                </div>
+                <!-- /.box-body -->
+            </div>
 
         </section><!-- end of content -->
 
@@ -130,3 +97,31 @@
 
 @endsection
 
+@push('scripts')
+
+    <script>
+
+        //line chart
+        var line = new Morris.Line({
+            element: 'line-chart',
+            resize: true,
+            data: [
+                    @foreach ($sales_data as $data)
+                {
+                    ym: "{{ $data->year }}-{{ $data->month }}", sum: "{{ $data->sum }}"
+                },
+                @endforeach
+            ],
+            xkey: 'ym',
+            ykeys: ['sum'],
+            labels: ['@lang('site.total')'],
+            lineWidth: 2,
+            hideHover: 'auto',
+            gridStrokeWidth: 0.4,
+            pointSize: 4,
+            gridTextFamily: 'Open Sans',
+            gridTextSize: 10
+        });
+    </script>
+
+@endpush
